@@ -124,6 +124,9 @@ public class Main {
             case "RET"->{
                 return 0x17;
             }
+            case "PRNT"->{
+                return 0x18;
+            }
             default -> {
                 return -1;
             }
