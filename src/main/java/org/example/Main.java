@@ -1,11 +1,29 @@
 package org.example;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
+
+    static Map<String, Integer> opcodes = new HashMap<>(){{
+        put("ADD", 0x01);
+        put("ADDC", 0x02);
+        put("SUB", 0x03);
+        put("SUBC", 0x04);
+        put("AND", 0x06);
+        put("OR", 0x07);
+        put("XOR", 0x08);
+        put("SLL", 0x09);
+        put("SRL", 0x0A);
+        put("SRA", 0x0B);
+        put("LDL", 0x0C);
+        put("STL", 0x10);
+        put("JMP", 0x13);
+        put("JMPR", 0x14);
+        put("CALL", 0x15);
+        put("RET", 0x17);
+        put("PRNT", 0x18);
+    }};
 
     public static String lerArquivo(String nomeArquivo){
         String out = "";
@@ -25,18 +43,18 @@ public class Main {
     public static byte[] compilar(String arquivo){
         List<Integer> ints = new ArrayList<>();
 
-        String linhas[] = arquivo.split("\n");
+        String[] linhas = arquivo.split("\n");
         for(String linha : linhas){
             System.out.println("Linha sendo processada: "+linha);
-            String elementos[] = linha.split(" ");
+            String[] elementos = linha.split(" ");
             if(elementos.length != 4)
                 return null;
             String opcodeString = elementos[0];
             int op1 = Integer.parseInt(elementos[1].substring(2), 16);
             int op2 = Integer.parseInt(elementos[2].substring(2), 16);
             int op3 = Integer.parseInt(elementos[3].substring(2), 16);
-            int opcode = getOpcode(opcodeString);
-            if(opcode == -1)
+            int opcode = opcodes.get(opcodeString);
+            if(opcodes.get(opcodeString) == null)
                 return null;
             ints.add(opcode);
             ints.add(op1);
@@ -72,66 +90,6 @@ public class Main {
             System.out.println("b: "+Integer.toHexString(b));
         }
         return bytes;
-    }
-
-    public static int getOpcode(String opcodeString){
-        switch(opcodeString){
-            case "ADD" ->{
-                return 0x01;
-            }
-            case "ADDC"->{
-                return 0x02;
-            }
-            case "SUB"->{
-                return 0x03;
-            }
-            case "SUBC"->{
-                return 0x04;
-            }
-            case "AND"->{
-                return 0x06;
-            }
-            case "OR"->{
-                return 0x07;
-            }
-            case "XOR"->{
-                return 0x08;
-            }
-            case "SLL"->{
-                return 0x09;
-            }
-            case "SRL"->{
-                return 0x0A;
-            }
-            case "SRA"->{
-                return 0x0B;
-            }
-            case "LDL"->{
-                return 0x0C;
-            }
-            case "STL"->{
-                return 0x10;
-            }
-            case "JMP"->{
-                return 0x13;
-            }
-            case "JMPR"->{
-                return 0x14;
-            }
-            case "CALL"->{
-                return 0x15;
-            }
-            case "RET"->{
-                return 0x17;
-            }
-            case "PRNT"->{
-                return 0x18;
-            }
-            default -> {
-                return -1;
-            }
-
-        }
     }
 
     public static void main(String[] args) {
