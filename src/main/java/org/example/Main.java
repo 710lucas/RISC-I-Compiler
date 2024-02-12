@@ -45,8 +45,12 @@ public class Main {
 
         String[] linhas = arquivo.split("\n");
         for(String linha : linhas){
+
+            if(linha.contains("//"))
+                continue;
+
             System.out.println("Linha sendo processada: "+linha);
-            String[] elementos = linha.split(" ");
+            String[] elementos = linha.split("\\s+");
             if(elementos.length != 4)
                 return null;
             String opcodeString = elementos[0];
@@ -108,7 +112,9 @@ public class Main {
 
         String arquivo = lerArquivo(nomeArquivo);
         try (FileOutputStream f = new FileOutputStream("a.bin")){
-                f.write(compilar(arquivo));
+            byte[] bytesToWrite = compilar(arquivo);
+            if(bytesToWrite != null)
+                f.write(bytesToWrite);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
