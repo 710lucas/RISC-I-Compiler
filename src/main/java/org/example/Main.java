@@ -21,6 +21,7 @@ public class Main {
         put("JMP", 0x13);
         put("JMPR", 0x14);
         put("CALL", 0x15);
+        put("CALLR", 0x16);
         put("RET", 0x17);
         put("PRNT", 0x18);
     }};
@@ -46,7 +47,7 @@ public class Main {
         String[] linhas = arquivo.split("\n");
         for(String linha : linhas){
 
-            if(linha.contains("//"))
+            if(linha.contains("//") || linha.replace(" ", "").isEmpty())
                 continue;
 
             System.out.println("Linha sendo processada: "+linha);
