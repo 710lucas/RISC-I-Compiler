@@ -1,6 +1,6 @@
 # RISC-I compiler
 
-**[Use the web version if you don't want to use java](https://710lucas.github.io/RISC-I-Compiler-web/public/)**
+**[Use the web version (it's easier)](https://710lucas.github.io/RISC-I-Compiler-web/public/)**
 
 [Link to the web version's repo](https://github.com/710lucas/RISC-I-Compiler-web)
 
